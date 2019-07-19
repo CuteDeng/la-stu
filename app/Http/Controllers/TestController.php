@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
+use App\Home\Member;
 
 class TestController extends Controller
 {
@@ -77,6 +78,35 @@ class TestController extends Controller
 
     public function test3(){
         return view('main',[]);
+    }
+
+    public function test4(){
+        return view('test4',[]);
+    }
+
+    public function test5(){
+        return '請求成功';
+    }
+
+    public function test6(){
+        $model = new Member();
+        $model->name  = 'dave';
+        $model->age  = '14';
+        $model->email  = 'test@qq.com';
+        $result = $model->save();
+        dd($result);
+    }
+
+    public function test10(){
+        return view("test10");
+    }
+
+    public function test11(Request $request){
+        $model = new Member();
+        $data = $request->all();
+//        dump($data);die;
+        $result = $model->create($data);
+        dump($request);die;
     }
 
 }
