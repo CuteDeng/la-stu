@@ -62,13 +62,21 @@ class TestController extends Controller
     }
 
     public function test2(){
-//        date_default_timezone_set('PRC');
         $date = date('Y-m-d H:i:s',time());
         $time = strtotime('+1 year');
-
+        $db = DB::table('member');
+        $data = $db->get();
+        $day = date('N');
         return view('test2',[
             'date' => $date,
-            'time' => $time
+            'time' => $time,
+            'data' => $data,
+            'day' => $day
         ]);
     }
+
+    public function test3(){
+        return view('main',[]);
+    }
+
 }

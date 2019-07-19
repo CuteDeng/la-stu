@@ -26,6 +26,7 @@ Route::group(['prefix' => 'test'], function (){
     Route::get('/update', 'TestController@update');
     Route::get('/select', 'TestController@select');
     Route::get('/test2', 'TestController@test2');
+    Route::get('/test3', 'TestController@test3');
 });
 
 
