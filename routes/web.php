@@ -15,4 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home/test/test1', 'TestController@test1');
+Route::get('/home/index/index', 'Home\IndexController@index');
+
+Route::get('/admin/index/index', 'Admin\IndexController@index');
+
+Route::group(['prefix' => 'test'], function (){
+    Route::get('/test1', 'TestController@test1');
+    Route::get('/add', 'TestController@add');
+    Route::get('/del', 'TestController@del');
+    Route::get('/update', 'TestController@update');
+    Route::get('/select', 'TestController@select');
+    Route::get('/test2', 'TestController@test2');
+});
+
+
