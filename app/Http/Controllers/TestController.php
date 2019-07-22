@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Home\Article;
+use App\Home\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
@@ -214,6 +216,42 @@ class TestController extends Controller
         });
         dump($time);
        die;
+    }
+
+    //关联查询
+    public function test20(){
+        $data = DB::table('article as t1')
+            ->select('t1.id','t1.article_name','t2.author_name')
+            ->leftJoin('author as t2','t1.author_id','=','t2.id')
+            ->get();
+        dd($data);
+    }
+
+    //关联模型，一对一
+    public function test21(){
+        $article = new Article();
+        $data = $article->get();
+//        $data = \App\Home\Article::get();
+        foreach ($data as $article){
+            dump($article->article_name.' 作者：'.$article->author->author_name);
+        }
+        die;
+    }
+    //一对多
+    public function test22(){
+        $article = new Article();
+        $data = $article->get();
+        foreach ($data as $article){
+            foreach ($article->comment as $comment){
+                dump($article->article_name.' 评论：'.$comment->comment);
+            }
+
+        }
+        die;
+    }
+
+    public function test23(){
+
     }
 
 }

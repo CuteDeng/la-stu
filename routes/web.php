@@ -44,6 +44,10 @@ Route::group(['prefix' => 'test'], function (){
     Route::get('/test17', 'TestController@test17');
     Route::get('/test18', 'TestController@test18');
     Route::get('/test19', 'TestController@test19');
+    Route::get('/test20', 'TestController@test20');
+    Route::get('/test21', 'TestController@test21');
+    Route::get('/test22', 'TestController@test22');
+    Route::get('/test23', 'TestController@test23');
 });
 
 
