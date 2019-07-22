@@ -249,9 +249,18 @@ class TestController extends Controller
         }
         die;
     }
-
+    //多对多
     public function test23(){
+        $article = new Article();
+        $data = $article->get();
+        foreach ($data as $article){
+            dump($article->article_name);
+            foreach ($article->keyword as $keyword){
+                dump($article->article_name.' 关键词：'.$keyword->keyword);
+            }
+        }
 
+        die;
     }
 
 }

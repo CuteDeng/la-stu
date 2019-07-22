@@ -19,4 +19,9 @@ class Article extends Model
         return $this->hasMany('App\Home\Comment','article_id','id');
     }
 
+    //多对多
+    public function keyword(){
+        return $this->belongsToMany('App\Home\Keyword','relation','article_id','keyword_id');
+    }
+
 }
