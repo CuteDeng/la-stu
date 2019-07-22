@@ -103,10 +103,61 @@ class TestController extends Controller
 
     public function test11(Request $request){
         $model = new Member();
+
         $data = $request->all();
 //        dump($data);die;
         $result = $model->create($data);
         dump($request);die;
+    }
+
+    public function test9(){
+        $model = new Member();
+        $data = $model->find(4)->toArray();
+        $data = $model->where('id','>', '1')->first()->toArray();
+//        $data = Member::find(4)->toArray();
+        dd($data);
+    }
+    //自动验证
+    public function test13(Request $request){
+        if(Input::method() == 'POST'){
+            $this->validate($request,[
+               'name' => 'required|min:2|max:20',
+                'age' => 'required|min:1|max:100|integer',
+                'email' => 'required|email',
+                'captcha' => 'required|captcha'
+            ]);
+            dump(1);
+        }else{
+            return view('test13');
+
+        }
+    }
+    //文件上传
+    public function test14(Request $request){
+        if(Input::method() == 'POST'){
+            if ($request->hasFile('avatar') && $request->file('avatar')->isValid()){
+//                $request->file('avatar')->getClientOriginalName();
+                $path = md5(time() . rand(100000,999999)).'.'.$request->file('avatar')->getClientOriginalExtension();
+                $request->file('avatar')->move('./uploads',$path);
+                $member = new Member();
+                $data = $request->all();
+                $data['avatar'] = './uploads/'.$path;
+                $result = $member->create($data);
+                dd($result);
+            }
+        }else{
+            return view('test14');
+
+        }
+    }
+
+    //分页
+    public function test15(){
+        $member = new Member();
+        $data = $member->paginate(1);
+        return view('test15',[
+            'data' => $data
+        ]);
     }
 
 }

@@ -9,5 +9,5 @@ class Member extends Model
     protected $table = 'member';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = ['name','age','email'];
+    protected $fillable = ['name','age','email','avatar'];
 }
