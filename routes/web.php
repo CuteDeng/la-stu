@@ -40,6 +40,8 @@ Route::group(['prefix' => 'test'], function (){
     Route::any('/test14', 'TestController@test14');
     Route::any('/test15', 'TestController@test15');
 
+    Route::get('/test16', 'TestController@test16');
+    Route::get('/test17', 'TestController@test17');
 });
 
 

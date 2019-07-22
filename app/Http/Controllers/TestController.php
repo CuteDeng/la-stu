@@ -143,7 +143,9 @@ class TestController extends Controller
                 $data = $request->all();
                 $data['avatar'] = './uploads/'.$path;
                 $result = $member->create($data);
-                dd($result);
+                if($result){
+                    return redirect('/test/test14');
+                }
             }
         }else{
             return view('test14');
@@ -158,6 +160,16 @@ class TestController extends Controller
         return view('test15',[
             'data' => $data
         ]);
+    }
+
+    public function test16(){
+        return view('test16');
+    }
+    //响应json
+    public function test17(){
+        $data = Member::all();
+//        return \Response::json($data);
+        return response()->json($data);
     }
 
 }
