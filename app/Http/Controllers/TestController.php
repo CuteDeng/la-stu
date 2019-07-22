@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 use App\Home\Member;
+use Cache;
+
 
 class TestController extends Controller
 {
@@ -170,6 +172,48 @@ class TestController extends Controller
         $data = Member::all();
 //        return \Response::json($data);
         return response()->json($data);
+    }
+
+    //会话控制
+    public function test18(){
+       \Session::put('name','dave');
+        $name = \Session::get('name');
+        dump($name);
+        dump(\Session::get('age',18));
+        dump(\Session::get('gender',function (){
+            return 'male';
+        }));
+        dump(\Session::all());
+        dump(\Session::has('name'));
+        dump(\Session::forget('age'));
+        dump(\Session::remove('name'));
+        dump( \Session::get('name'));
+        dump(\Session::flush());
+        die;
+    }
+
+    //缓存操作
+    public function test19(){
+       Cache::put('name','qzon',10);
+       Cache::add('area','asd',10);
+       Cache::forever('age','100');
+       $name = Cache::get('name');
+       dump($name);
+        dump(Cache::get('hello','默认值'));
+        dump(Cache::get('hello',function (){
+            return '默认值';
+        }));
+        dump(Cache::has('area'));
+
+        dump(Cache::pull('name'));
+        dump(Cache::forget('name'));
+        dump(Cache::increment('count'));
+        dump(Cache::increment('count',1));
+        $time = Cache::remember('time',120,function (){
+            return date('Y-m-d H:i:s',time());
+        });
+        dump($time);
+       die;
     }
 
 }
